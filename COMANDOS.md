@@ -24,3 +24,5 @@ Salida esperada:
 ```bash
 NuSMV -h
 ```
+
+Los comandos interactivos del Ejercicio 2 están documentados en [Ejercicio2/COMANDOS.md](Ejercicio2/COMANDOS.md).
