@@ -1,0 +1,26 @@
+-- Modelo de autenticación para NuSMV
+MODULE main
+
+VAR
+  input_valid : boolean;
+  logged_in   : boolean;
+
+ASSIGN
+  init(input_valid) := FALSE;
+  init(logged_in) := FALSE;
+
+  -- La entrada alterna entre credenciales válidas e inválidas.
+  next(input_valid) := !input_valid;
+
+  -- logged_in siempre toma el valor de la nueva entrada.
+  -- Como input_valid alterna, el siguiente valor es su negación actual.
+  next(logged_in) := case
+    input_valid  : FALSE;
+    !input_valid : TRUE;
+  esac;
+
+-- Nunca se concede acceso si las credenciales no son válidas.
+SPEC AG (!input_valid -> !logged_in)
+
+-- Si las credenciales son válidas, eventualmente el usuario inicia sesión.
+SPEC AG (input_valid -> AF logged_in)
